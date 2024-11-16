@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.uistate
+package com.example.androidcookbook.ui
 
 data class CookbookUiState (
     val canNavigateBack: Boolean = false,

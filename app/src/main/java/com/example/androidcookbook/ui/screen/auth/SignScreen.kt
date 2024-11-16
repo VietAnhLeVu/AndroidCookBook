@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,10 +29,10 @@ import com.example.androidcookbook.model.auth.SignInRequest
 import com.example.androidcookbook.model.auth.RegisterRequest
 
 @Composable
-fun SignBackground(
-    viewModel: AuthViewModel,
-    isSignIn: Boolean,
-    isOpenDialog: Boolean
+fun LoginScreen(
+    authViewModel: AuthViewModel,
+    onNavigateToSignUp: () -> Unit,
+    onForgotPasswordClick: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -41,6 +40,7 @@ fun SignBackground(
             .background(color = Color(0xFF251404))
             .verticalScroll(rememberScrollState())
     ) {
+        // Background and layout setup
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawOval(
                 color = Color(0xFF4F3423),
@@ -53,7 +53,7 @@ fun SignBackground(
             modifier = Modifier
                 .wrapContentWidth()
                 .fillMaxHeight()
-                .padding(start = 11.dp, top = 11.dp, end = 11.dp, bottom = 11.dp)
+                .padding(11.dp)
                 .align(Alignment.TopCenter)
                 .offset(y = 70.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -61,39 +61,54 @@ fun SignBackground(
         ) {
             AppLogo()
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                if (isSignIn) {
-                    SignInCompose(
-                        onSignUpClick = {viewModel.ChangeInOrUp(false)},
-                        onForgotPasswordClick = {},
-                        viewModel
-                    )
-                } else {
-                    SignUpCompose(
-                        onSignInClick = {viewModel.ChangeInOrUp(true)},
-                        viewModel = viewModel
-                    )
-                }
-            }
-        }
-        if (isOpenDialog) {
-            MinimalDialog(
-                dialogMessage = viewModel.uiState.value.dialogMessage,
-                onDismissRequest = {
-                    viewModel.ChangeOpenDialog(false)
-                    if (viewModel.uiState.value.signInSuccess) {
-                        viewModel.SignInApp()
-                    }
-                }
+            SignInCompose(
+                onSignUpClick = onNavigateToSignUp,
+                onForgotPasswordClick = onForgotPasswordClick,
+                viewModel = authViewModel
             )
         }
     }
 }
 
+@Composable
+fun RegisterScreen(
+    authViewModel: AuthViewModel,
+    onNavigateToSignIn: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color(0xFF251404))
+            .verticalScroll(rememberScrollState())
+    ) {
+        // Background and layout setup
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            drawOval(
+                color = Color(0xFF4F3423),
+                topLeft = Offset(size.width * (-0.1f), size.height / (-14)),
+                size = Size(size.width * 1.2f, size.height / 4)
+            )
+        }
 
+        Column(
+            modifier = Modifier
+                .wrapContentWidth()
+                .fillMaxHeight()
+                .padding(11.dp)
+                .align(Alignment.TopCenter)
+                .offset(y = 70.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(50.dp)
+        ) {
+            AppLogo()
+
+            SignUpCompose(
+                onSignInClick = onNavigateToSignIn,
+                viewModel = authViewModel
+            )
+        }
+    }
+}
 
 @Composable
 fun SignInCompose(
@@ -173,11 +188,9 @@ fun SignUpCompose(
 @Preview
 @Composable
 fun SignPreview() {
-    val viewModel: AuthViewModel = viewModel()
-    val uiState by viewModel.uiState.collectAsState()
-    SignBackground(viewModel = viewModel, uiState.isSignIn, uiState.openDialog)
+    val authViewModel: AuthViewModel = viewModel(factory = AuthViewModel.Factory)
+    LoginScreen(authViewModel = authViewModel, {}, {})
 }
-
 
 @Preview
 @Composable

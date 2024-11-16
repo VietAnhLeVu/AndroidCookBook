@@ -25,7 +25,6 @@ import com.example.androidcookbook.ui.nav.authScreens
 import com.example.androidcookbook.ui.nav.shouldShowBottomBar
 import com.example.androidcookbook.ui.nav.shouldShowTopBar
 import com.example.androidcookbook.ui.screen.category.CategoryViewModel
-import com.example.androidcookbook.ui.viewmodel.CookbookViewModel
 import com.example.androidcookbook.ui.screen.auth.AuthViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -117,7 +116,7 @@ fun CookbookApp(
                 .fillMaxSize()
                 .padding(innerPadding),
         ) {
-            authScreens(navController = navController, viewModel = authViewModel)
+            authScreens(navController = navController, authViewModel = authViewModel)
             appScreens(navController = navController, viewModel = viewModel, categoryViewModel = categoryViewModel, uiState = uiState)
         }
     }

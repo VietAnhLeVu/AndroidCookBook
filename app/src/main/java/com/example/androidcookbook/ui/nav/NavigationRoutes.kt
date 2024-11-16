@@ -11,6 +11,7 @@ sealed class NavigationRoutes {
     sealed class AuthScreens(val route: String) : NavigationRoutes() {
         data object NavigationRoute : AuthScreens(route = "Unauthenticated")
         data object Login : AuthScreens(route = "Login")
+        data object Register : AuthScreens(route = "Register")
         data object ForgotPassword : AuthScreens(route = "ForgotPassword")
     }
 
@@ -33,6 +34,7 @@ fun shouldShowTopBar(currentRoute: String): Boolean {
         NavigationRoutes.AuthScreens.NavigationRoute.route -> false
         NavigationRoutes.AuthScreens.Login.route -> false
         NavigationRoutes.AuthScreens.ForgotPassword.route -> false
+        NavigationRoutes.AuthScreens.Register.route -> false
         else -> true
     }
 }

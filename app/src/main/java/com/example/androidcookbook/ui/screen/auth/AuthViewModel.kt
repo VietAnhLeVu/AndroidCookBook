@@ -27,14 +27,6 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private val _uiState = MutableStateFlow(AuthUiState())
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
 
-    fun ChangeInOrUp(sign: Boolean) {
-        _uiState.update {
-            it.copy(
-                isSignIn = sign
-            )
-        }
-    }
-
     fun ChangeOpenDialog(open: Boolean) {
         _uiState.update {
             it.copy(
@@ -59,14 +51,6 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         }
     }
 
-    fun SignInApp() {
-        _uiState.update {
-            it.copy(
-                signedIn = true
-            )
-        }
-    }
-
     fun SignUp(req: RegisterRequest) {
         viewModelScope.launch(Dispatchers.IO) {
             authRepository.register(req).enqueue(object : Callback<RegisterResponse> {
@@ -80,7 +64,6 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
                         val registerResponse = response.body()
                         Log.d("Register", "Success: ${registerResponse?.message}")
                         ChangeDialogMessage(registerResponse?.message.toString())
-                        ChangeInOrUp(true)
                     } else {
                         // Trường hợp lỗi (400, 500, etc.)
                         val errorBody = response.errorBody()?.string()

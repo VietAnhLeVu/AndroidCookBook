@@ -10,9 +10,9 @@ import com.example.androidcookbook.ui.screen.common.CreatePostScreen
 import com.example.androidcookbook.ui.screen.newsfeed.NewsfeedScreen
 import com.example.androidcookbook.ui.screen.common.SearchScreen
 import com.example.androidcookbook.ui.screen.userprofile.UserProfileScreen
-import com.example.androidcookbook.ui.uistate.CookbookUiState
+import com.example.androidcookbook.ui.CookbookUiState
 import com.example.androidcookbook.ui.screen.category.CategoryViewModel
-import com.example.androidcookbook.ui.viewmodel.CookbookViewModel
+import com.example.androidcookbook.ui.CookbookViewModel
 
 /**
  * App screens nav graph builder
