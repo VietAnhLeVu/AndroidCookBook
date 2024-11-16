@@ -24,9 +24,9 @@ import com.example.androidcookbook.ui.nav.appScreens
 import com.example.androidcookbook.ui.nav.authScreens
 import com.example.androidcookbook.ui.nav.shouldShowBottomBar
 import com.example.androidcookbook.ui.nav.shouldShowTopBar
-import com.example.androidcookbook.ui.viewmodel.CategoryViewModel
+import com.example.androidcookbook.ui.screen.category.CategoryViewModel
 import com.example.androidcookbook.ui.viewmodel.CookbookViewModel
-import com.example.androidcookbook.ui.screen.auth.SignViewModel
+import com.example.androidcookbook.ui.screen.auth.AuthViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +41,9 @@ fun CookbookApp(
     )
 
     val viewModel: CookbookViewModel = viewModel()
+    val authViewModel: AuthViewModel = viewModel(factory = AuthViewModel.Factory)
     val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModel.Factory)
+
     val uiState by viewModel.uiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -115,7 +117,7 @@ fun CookbookApp(
                 .fillMaxSize()
                 .padding(innerPadding),
         ) {
-            authScreens(navController = navController, viewModel = SignViewModel())
+            authScreens(navController = navController, viewModel = authViewModel)
             appScreens(navController = navController, viewModel = viewModel, categoryViewModel = categoryViewModel, uiState = uiState)
         }
     }

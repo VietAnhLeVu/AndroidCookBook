@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.viewmodel
+package com.example.androidcookbook.ui.screen.category
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -10,7 +10,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidcookbook.CookbookApplication
 import com.example.androidcookbook.data.CookbookRepository
-import com.example.androidcookbook.ui.screen.category.CategoryUiState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -25,13 +25,13 @@ class CategoryViewModel(private val cookbookRepository: CookbookRepository) : Vi
     }
 
     fun getCategories() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             categoryUiState = CategoryUiState.Loading
             categoryUiState = try {
                 CategoryUiState.Success(cookbookRepository.getCategories())
-            }catch (e: IOException) {
+            } catch (e: IOException) {
                 CategoryUiState.Error
-            }catch (e: HttpException) {
+            } catch (e: HttpException) {
                 CategoryUiState.Error
             }
         }
@@ -42,7 +42,7 @@ class CategoryViewModel(private val cookbookRepository: CookbookRepository) : Vi
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as CookbookApplication)
-                val cookbookRepository = application.container.cookbookRepository
+                val cookbookRepository = application.theMealDBContainer.repository as CookbookRepository
                 CategoryViewModel(cookbookRepository = cookbookRepository)
             }
         }

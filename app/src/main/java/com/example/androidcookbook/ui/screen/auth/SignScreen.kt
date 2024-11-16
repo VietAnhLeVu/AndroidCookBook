@@ -31,7 +31,7 @@ import com.example.androidcookbook.model.auth.RegisterRequest
 
 @Composable
 fun SignBackground(
-    viewModel: SignViewModel,
+    viewModel: AuthViewModel,
     isSignIn: Boolean,
     isOpenDialog: Boolean
 ) {
@@ -99,7 +99,7 @@ fun SignBackground(
 fun SignInCompose(
     onSignUpClick: () -> Unit,
     onForgotPasswordClick: () -> Unit,
-    viewModel: SignViewModel
+    viewModel: AuthViewModel
 ) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -130,7 +130,7 @@ fun SignInCompose(
 @Composable
 fun SignUpCompose(
     onSignInClick: () -> Unit,
-    viewModel: SignViewModel
+    viewModel: AuthViewModel
 ) {
     var email by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
@@ -173,7 +173,7 @@ fun SignUpCompose(
 @Preview
 @Composable
 fun SignPreview() {
-    val viewModel: SignViewModel = viewModel()
+    val viewModel: AuthViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsState()
     SignBackground(viewModel = viewModel, uiState.isSignIn, uiState.openDialog)
 }

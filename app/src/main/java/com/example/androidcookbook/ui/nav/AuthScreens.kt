@@ -6,13 +6,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.example.androidcookbook.ui.screen.auth.ForgotPasswordScreen
 import com.example.androidcookbook.ui.screen.auth.SignBackground
-import com.example.androidcookbook.ui.screen.auth.SignViewModel
+import com.example.androidcookbook.ui.screen.auth.AuthViewModel
 
 /**
  * Login, registration, forgot password screens nav graph builder
  * (Unauthenticated user)
  */
-fun NavGraphBuilder.authScreens(viewModel: SignViewModel, navController: NavController) {
+fun NavGraphBuilder.authScreens(viewModel: AuthViewModel, navController: NavController) {
     navigation(
         route = NavigationRoutes.AuthScreens.NavigationRoute.route,
         startDestination = NavigationRoutes.AuthScreens.Login.route
