@@ -1,12 +1,16 @@
 package com.example.androidcookbook.ui.nav
 
+import android.util.Log
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.example.androidcookbook.model.auth.SignInRequest
-import com.example.androidcookbook.ui.screen.auth.ForgotPasswordScreen
 import com.example.androidcookbook.ui.screen.auth.AuthViewModel
+import com.example.androidcookbook.ui.screen.auth.ForgotPasswordScreen
 import com.example.androidcookbook.ui.screen.auth.LoginScreen
 import com.example.androidcookbook.ui.screen.auth.RegisterScreen
 
@@ -14,12 +18,15 @@ import com.example.androidcookbook.ui.screen.auth.RegisterScreen
  * Login, registration, forgot password screens nav graph builder
  * (Unauthenticated user)
  */
-fun NavGraphBuilder.authScreens(authViewModel: AuthViewModel, navController: NavController) {
+fun NavGraphBuilder.authScreens(navController: NavController) {
     navigation(
         route = NavigationRoutes.AuthScreens.NavigationRoute.route,
         startDestination = NavigationRoutes.AuthScreens.Login.route
     ) {
+        // Scope the ViewModel to the navigation graph
         composable(route = NavigationRoutes.AuthScreens.Login.route) {
+            val authViewModel: AuthViewModel = navController.getViewModel(factory = AuthViewModel.Factory)
+            val authUiState by authViewModel.uiState.collectAsState()
             LoginScreen(
                 authViewModel = authViewModel,
                 onNavigateToSignUp = {
@@ -27,14 +34,26 @@ fun NavGraphBuilder.authScreens(authViewModel: AuthViewModel, navController: Nav
                 },
                 onForgotPasswordClick = {},
                 onSignInClick = { username, password ->
-                    authViewModel.SignIn(SignInRequest(username, password))
-                    if (authViewModel.uiState.value.signInSuccess) {
-                        navController.navigate(NavigationRoutes.AppScreens.NavigationRoute.route)
-                    }
+                    authViewModel.signIn(SignInRequest(username, password))
                 }
             )
+            Log.d("Login", "after LoginScreen() before LaunchedEffect(): signInSuccess: ${authUiState.signInSuccess}")
+            // Navigate to AppScreens graph when sign in is successful.
+            LaunchedEffect(authUiState.signInSuccess) {
+                Log.d("Login", "in LaunchedEffect(): signInSuccess: ${authUiState.signInSuccess}")
+                if (authViewModel.uiState.value.signInSuccess) {
+                    Log.d("Login", "signInSuccess: ${authUiState.signInSuccess}")
+                    navController.navigate(NavigationRoutes.AppScreens.NavigationRoute.route) {
+                        // Clear authScreens from the backstack
+                        popUpTo(NavigationRoutes.AuthScreens.NavigationRoute.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            }
         }
         composable(route = NavigationRoutes.AuthScreens.Register.route) {
+            val authViewModel: AuthViewModel = navController.getViewModel(factory = AuthViewModel.Factory)
             RegisterScreen(
                 authViewModel = authViewModel,
                 onNavigateToSignIn = {
@@ -42,8 +61,8 @@ fun NavGraphBuilder.authScreens(authViewModel: AuthViewModel, navController: Nav
                 }
             )
         }
-
         composable(route = NavigationRoutes.AuthScreens.ForgotPassword.route) {
+            val authViewModel: AuthViewModel = navController.getViewModel(factory = AuthViewModel.Factory)
             ForgotPasswordScreen(
 
             )

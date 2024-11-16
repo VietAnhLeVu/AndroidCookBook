@@ -1,10 +1,6 @@
 package com.example.androidcookbook
 
-import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onChild
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -52,7 +48,7 @@ class ExampleInstrumentedTest {
                     authViewModel = authViewModel,
                     onNavigateToSignUp = {},
                     onForgotPasswordClick = {},
-                    onSignInClick = { username, password -> authViewModel.SignIn(SignInRequest(username, password)) }
+                    onSignInClick = { username, password -> authViewModel.signIn(SignInRequest(username, password)) }
                 )
             }
         }

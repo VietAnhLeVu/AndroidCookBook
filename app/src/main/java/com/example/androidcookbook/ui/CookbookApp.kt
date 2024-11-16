@@ -40,7 +40,6 @@ fun CookbookApp(
     )
 
     val viewModel: CookbookViewModel = viewModel()
-    val authViewModel: AuthViewModel = viewModel(factory = AuthViewModel.Factory)
     val categoryViewModel: CategoryViewModel = viewModel(factory = CategoryViewModel.Factory)
 
     val uiState by viewModel.uiState.collectAsState()
@@ -116,7 +115,7 @@ fun CookbookApp(
                 .fillMaxSize()
                 .padding(innerPadding),
         ) {
-            authScreens(navController = navController, authViewModel = authViewModel)
+            authScreens(navController = navController)
             appScreens(navController = navController, viewModel = viewModel, categoryViewModel = categoryViewModel, uiState = uiState)
         }
     }

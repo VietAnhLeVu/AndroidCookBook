@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.example.androidcookbook.R
 import com.example.androidcookbook.ui.theme.Typography
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CookbookAppBar(
