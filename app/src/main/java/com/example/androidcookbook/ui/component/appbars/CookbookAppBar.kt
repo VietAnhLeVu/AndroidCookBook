@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.component
+package com.example.androidcookbook.ui.component.appbars
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

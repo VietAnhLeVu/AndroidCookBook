@@ -14,21 +14,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.androidcookbook.ui.component.CookbookAppBar
-import com.example.androidcookbook.ui.component.CookbookBottomNavigationBar
-import com.example.androidcookbook.ui.component.SearchBar
-import com.example.androidcookbook.ui.screen.AIChatScreen
-import com.example.androidcookbook.ui.screen.CategoryScreen
-import com.example.androidcookbook.ui.screen.CreatePostScreen
-import com.example.androidcookbook.ui.screen.NewsfeedScreen
-import com.example.androidcookbook.ui.screen.SearchScreen
-import com.example.androidcookbook.ui.screen.UserProfileScreen
+import com.example.androidcookbook.ui.component.appbars.CookbookAppBar
+import com.example.androidcookbook.ui.component.appbars.CookbookBottomNavigationBar
+import com.example.androidcookbook.ui.component.appbars.SearchBar
+import com.example.androidcookbook.ui.nav.appScreens
+import com.example.androidcookbook.ui.nav.authScreens
 import com.example.androidcookbook.ui.screen.CookbookScreens
 import com.example.androidcookbook.ui.viewmodel.CategoryViewModel
 import com.example.androidcookbook.ui.viewmodel.CookbookViewModel
+import com.example.androidcookbook.ui.viewmodel.SignViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -117,41 +113,8 @@ fun CookbookApp(
                 .fillMaxSize()
                 .padding(innerPadding),
         ) {
-            composable(route = CookbookScreens.Login.name) {
-                // TODO: add SignInScreen
-            }
-            composable(route = CookbookScreens.Category.name) {
-                CategoryScreen(categoryUiState = categoryViewModel.categoryUiState)
-            }
-            composable(route = CookbookScreens.Search.name) {
-                SearchScreen(
-                    result = uiState.searchQuery,
-                    onBackButtonClick = {
-                        navController.navigateUp()
-                        viewModel.updateCanNavigateBack(false)
-                    }
-                )
-            }
-            composable(route = CookbookScreens.AIChat.name) {
-                AIChatScreen()
-            }
-            composable(route = CookbookScreens.Newsfeed.name) {
-                NewsfeedScreen()
-            }
-            composable(route = CookbookScreens.UserProfile.name) {
-                UserProfileScreen()
-            }
-            composable(route = CookbookScreens.CreatePost.name) {
-                CreatePostScreen(
-                    onPostButtonClick = {
-                        //TODO: Connect to database
-                    },
-                    onBackButtonClick = {
-                        navController.navigateUp()
-                        viewModel.updateCanNavigateBack(false)
-                    },
-                )
-            }
+            authScreens(navController = navController, viewModel = SignViewModel())
+            appScreens(navController = navController, viewModel = viewModel, categoryViewModel = categoryViewModel, uiState = uiState)
         }
     }
 }
