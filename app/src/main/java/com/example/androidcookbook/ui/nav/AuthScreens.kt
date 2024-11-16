@@ -4,9 +4,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.androidcookbook.ui.screen.signinandup.ForgotPasswordScreen
-import com.example.androidcookbook.ui.screen.signinandup.SignBackground
-import com.example.androidcookbook.ui.viewmodel.SignViewModel
+import com.example.androidcookbook.ui.screen.auth.ForgotPasswordScreen
+import com.example.androidcookbook.ui.screen.auth.SignBackground
+import com.example.androidcookbook.ui.screen.auth.SignViewModel
 
 /**
  * Login, registration, forgot password screens nav graph builder

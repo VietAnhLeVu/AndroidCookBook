@@ -1,13 +1,13 @@
-package com.example.androidcookbook.ui.viewmodel
+package com.example.androidcookbook.ui.screen.auth
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.androidcookbook.model.api.ApiResponse
-import com.example.androidcookbook.model.api.SignInRequest
-import com.example.androidcookbook.model.signup.RegisterRequest
-import com.example.androidcookbook.model.signup.RegisterResponse
+import com.example.androidcookbook.model.auth.SignInRequest
+import com.example.androidcookbook.model.auth.RegisterRequest
+import com.example.androidcookbook.model.auth.RegisterResponse
 import com.example.androidcookbook.network.authApi
-import com.example.androidcookbook.ui.uistate.SignUiState
+import com.example.androidcookbook.ui.screen.auth.state.SignUiState
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

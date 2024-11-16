@@ -1,4 +1,4 @@
-package com.example.androidcookbook.model.signup
+package com.example.androidcookbook.model.auth
 
 data class RegisterRequest(
     val username: String,

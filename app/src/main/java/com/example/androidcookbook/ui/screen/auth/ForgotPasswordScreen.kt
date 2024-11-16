@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen.signinandup
+package com.example.androidcookbook.ui.screen.auth
 
 import androidx.compose.runtime.Composable
 

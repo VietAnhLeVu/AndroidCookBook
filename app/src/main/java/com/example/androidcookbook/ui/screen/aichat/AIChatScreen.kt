@@ -1,9 +1,9 @@
-package com.example.androidcookbook.ui.screen.appscreens
+package com.example.androidcookbook.ui.screen.aichat
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun UserProfileScreen(modifier: Modifier = Modifier) {
+fun AIChatScreen(modifier: Modifier = Modifier) {
     //TODO("Not yet implemented")
 }

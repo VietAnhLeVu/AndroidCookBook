@@ -1,6 +1,5 @@
 package com.example.androidcookbook.ui.viewmodel
 
-import android.text.Editable.Factory
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,9 +10,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidcookbook.CookbookApplication
 import com.example.androidcookbook.data.CookbookRepository
-import com.example.androidcookbook.data.DefaultCookbookRepository
-import com.example.androidcookbook.ui.uistate.CategoryUiState
-import com.example.androidcookbook.ui.uistate.CookbookUiState
+import com.example.androidcookbook.ui.screen.category.CategoryUiState
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException

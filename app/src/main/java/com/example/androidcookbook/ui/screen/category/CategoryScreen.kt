@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen.appscreens
+package com.example.androidcookbook.ui.screen.category
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -38,7 +38,6 @@ import coil.request.ImageRequest
 import com.example.androidcookbook.R
 import com.example.androidcookbook.model.Category
 import com.example.androidcookbook.ui.theme.Typography
-import com.example.androidcookbook.ui.uistate.CategoryUiState
 import kotlinx.coroutines.delay
 
 @Composable

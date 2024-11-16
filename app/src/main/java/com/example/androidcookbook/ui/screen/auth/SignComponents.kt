@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.component.singinandup
+package com.example.androidcookbook.ui.screen.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

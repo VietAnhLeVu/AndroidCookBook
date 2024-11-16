@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.uistate
+package com.example.androidcookbook.ui.screen.category
 
 import com.example.androidcookbook.model.Category
 

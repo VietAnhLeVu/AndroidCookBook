@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.uistate
+package com.example.androidcookbook.ui.screen.auth.state
 
 data class SignUiState(
     val isSignIn: Boolean = true,

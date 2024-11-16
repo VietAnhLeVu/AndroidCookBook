@@ -26,7 +26,7 @@ import com.example.androidcookbook.ui.nav.shouldShowBottomBar
 import com.example.androidcookbook.ui.nav.shouldShowTopBar
 import com.example.androidcookbook.ui.viewmodel.CategoryViewModel
 import com.example.androidcookbook.ui.viewmodel.CookbookViewModel
-import com.example.androidcookbook.ui.viewmodel.SignViewModel
+import com.example.androidcookbook.ui.screen.auth.SignViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

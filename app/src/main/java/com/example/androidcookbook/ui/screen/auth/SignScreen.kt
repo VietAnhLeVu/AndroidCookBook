@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen.signinandup
+package com.example.androidcookbook.ui.screen.auth
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -26,14 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androidcookbook.model.api.SignInRequest
-import com.example.androidcookbook.model.signup.RegisterRequest
-import com.example.androidcookbook.ui.component.singinandup.AppLogo
-import com.example.androidcookbook.ui.component.singinandup.ClickableSeparatedText
-import com.example.androidcookbook.ui.component.singinandup.MinimalDialog
-import com.example.androidcookbook.ui.component.singinandup.SignInComponents
-import com.example.androidcookbook.ui.component.singinandup.SignUpComponents
-import com.example.androidcookbook.ui.viewmodel.SignViewModel
+import com.example.androidcookbook.model.auth.SignInRequest
+import com.example.androidcookbook.model.auth.RegisterRequest
 
 @Composable
 fun SignBackground(

@@ -1,9 +1,9 @@
 package com.example.androidcookbook.network
 
 import com.example.androidcookbook.model.api.ApiResponse
-import com.example.androidcookbook.model.api.SignInRequest
-import com.example.androidcookbook.model.signup.RegisterRequest
-import com.example.androidcookbook.model.signup.RegisterResponse
+import com.example.androidcookbook.model.auth.SignInRequest
+import com.example.androidcookbook.model.auth.RegisterRequest
+import com.example.androidcookbook.model.auth.RegisterResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

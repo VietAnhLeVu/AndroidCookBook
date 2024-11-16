@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen.appscreens
+package com.example.androidcookbook.ui.screen.common
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.material.Text
