@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 private const val THE_MEAL_DB = "https://www.themealdb.com/api/json/v1/1/"
-private const val COOKBOOK_BE = "https://cookbookbe.onrender.com"
+private const val COOKBOOK_BE = "https://cookbookbe.onrender.com/"
 
 interface AppContainer {
     val repository: Repository
