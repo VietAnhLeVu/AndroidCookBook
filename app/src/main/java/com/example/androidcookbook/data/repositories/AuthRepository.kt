@@ -1,10 +1,8 @@
-package com.example.androidcookbook.data
+package com.example.androidcookbook.data.repositories
 
 import com.example.androidcookbook.model.auth.RegisterRequest
-import com.example.androidcookbook.model.auth.RegisterResponse
 import com.example.androidcookbook.model.auth.SignInRequest
-import com.example.androidcookbook.model.auth.SignInResponse
-import com.example.androidcookbook.network.AuthService
+import com.example.androidcookbook.data.network.AuthService
 
 class AuthRepository(
     private val authService: AuthService

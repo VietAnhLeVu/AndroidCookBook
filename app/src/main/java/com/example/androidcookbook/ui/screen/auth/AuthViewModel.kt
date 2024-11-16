@@ -3,18 +3,16 @@ package com.example.androidcookbook.ui.screen.auth
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidcookbook.CookbookApplication
-import com.example.androidcookbook.data.AuthRepository
+import com.example.androidcookbook.data.repositories.AuthRepository
 import com.example.androidcookbook.model.auth.RegisterRequest
 import com.example.androidcookbook.model.auth.SignInRequest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {

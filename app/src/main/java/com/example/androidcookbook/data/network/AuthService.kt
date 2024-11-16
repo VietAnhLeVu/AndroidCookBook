@@ -1,4 +1,4 @@
-package com.example.androidcookbook.network
+package com.example.androidcookbook.data.network
 
 import com.example.androidcookbook.model.auth.RegisterRequest
 import com.example.androidcookbook.model.auth.RegisterResponse

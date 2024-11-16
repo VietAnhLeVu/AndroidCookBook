@@ -1,9 +1,9 @@
 package com.example.androidcookbook
 
 import android.app.Application
-import com.example.androidcookbook.data.AppContainer
-import com.example.androidcookbook.data.AuthContainer
-import com.example.androidcookbook.data.TheMealDBContainer
+import com.example.androidcookbook.data.containers.AppContainer
+import com.example.androidcookbook.data.containers.AuthContainer
+import com.example.androidcookbook.data.containers.TheMealDBContainer
 
 class CookbookApplication: Application() {
     lateinit var theMealDBContainer: AppContainer
