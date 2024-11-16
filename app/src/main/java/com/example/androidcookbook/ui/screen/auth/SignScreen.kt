@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,8 @@ fun LoginScreen(
     authViewModel: AuthViewModel,
     onNavigateToSignUp: () -> Unit,
     onForgotPasswordClick: () -> Unit,
+    onSignInClick: (String, String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = Modifier
@@ -64,7 +67,16 @@ fun LoginScreen(
             SignInCompose(
                 onSignUpClick = onNavigateToSignUp,
                 onForgotPasswordClick = onForgotPasswordClick,
-                viewModel = authViewModel
+                onSignInClick = onSignInClick,
+            )
+        }
+        val uiState by authViewModel.uiState.collectAsState()
+        if (uiState.openDialog) {
+            MinimalDialog(
+                dialogMessage = uiState.dialogMessage,
+                onDismissRequest = {
+                    authViewModel.ChangeOpenDialog(false)
+                }
             )
         }
     }
@@ -107,6 +119,15 @@ fun RegisterScreen(
                 viewModel = authViewModel
             )
         }
+        val uiState by authViewModel.uiState.collectAsState()
+        if (uiState.openDialog) {
+            MinimalDialog(
+                dialogMessage = uiState.dialogMessage,
+                onDismissRequest = {
+                    authViewModel.ChangeOpenDialog(false)
+                }
+            )
+        }
     }
 }
 
@@ -114,7 +135,8 @@ fun RegisterScreen(
 fun SignInCompose(
     onSignUpClick: () -> Unit,
     onForgotPasswordClick: () -> Unit,
-    viewModel: AuthViewModel
+    onSignInClick: (String, String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -127,7 +149,7 @@ fun SignInCompose(
         onTypePassword = {
             password = it
         },
-        onSignInClick = { viewModel.SignIn(SignInRequest(username, password)) }
+        onSignInClick = onSignInClick,
     )
 
     ClickableSeparatedText(
@@ -189,7 +211,7 @@ fun SignUpCompose(
 @Composable
 fun SignPreview() {
     val authViewModel: AuthViewModel = viewModel(factory = AuthViewModel.Factory)
-    LoginScreen(authViewModel = authViewModel, {}, {})
+    LoginScreen(authViewModel = authViewModel, {}, {}, {_,_ ->})
 }
 
 @Preview

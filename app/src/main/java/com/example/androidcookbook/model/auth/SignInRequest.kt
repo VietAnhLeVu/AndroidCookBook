@@ -1,14 +1,13 @@
 package com.example.androidcookbook.model.auth
 
+import com.google.gson.annotations.SerializedName
+
 data class SignInRequest(
     val username: String,
     val password: String
 )
 
 data class SignInResponse(
-    val statusCode: Int,
-    val timestamp: String,
-    val path: String,
+    @SerializedName("access_token") val accessToken: String,
     val message: String,
-    val error: String
 )

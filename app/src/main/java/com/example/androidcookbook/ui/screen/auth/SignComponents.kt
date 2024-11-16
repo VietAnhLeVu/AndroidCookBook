@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -81,7 +82,7 @@ fun SignInComponents(
     onTypeUsername: (String) -> Unit,
     password: String,
     onTypePassword: (String) -> Unit,
-    onSignInClick: () -> Unit
+    onSignInClick: (String, String) -> Unit
 ) {
 
     Column(
@@ -93,7 +94,7 @@ fun SignInComponents(
         InputField(password, onTypePassword, "Password", KeyboardType.Password)
 
         SignInButton(
-            onClick = onSignInClick,
+            onClick = { onSignInClick(username, password) },
             actionText = "Sign In"
         )
 
@@ -152,12 +153,16 @@ fun ClickableSeparatedText(
     }
 }
 
+const val USERNAME_TEXT_FIELD_TEST_TAG = "username"
+const val PASSWORD_TEXT_FIELD_TEST_TAG = "password"
+
 @Composable
 fun InputField(
     text: String,
     onChange: (String) -> Unit,
     placeholderText: String,
-    type: KeyboardType
+    type: KeyboardType,
+    modifier: Modifier = Modifier
 ) {
     if (type == KeyboardType.Password) {
         var passwordVisible by remember { mutableStateOf(false) }
@@ -168,7 +173,8 @@ fun InputField(
                     color = Color(0xFFD1CACB),
                     shape = RoundedCornerShape(size = 30.dp)
                 )
-                .width(325.dp),
+                .width(325.dp)
+                .testTag(PASSWORD_TEXT_FIELD_TEST_TAG),
             value = text, onValueChange = onChange,
             placeholder = {
                 Text(text = placeholderText)
@@ -190,7 +196,9 @@ fun InputField(
                 // Please provide localized description for accessibility services
                 val description = if (passwordVisible) "Hide password" else "Show password"
 
-                IconButton(onClick = {passwordVisible = !passwordVisible}){
+                IconButton(
+                    onClick = {passwordVisible = !passwordVisible},
+                ) {
                     Icon(imageVector  = image, description)
                 }
             }
@@ -202,7 +210,8 @@ fun InputField(
                     color = Color(0xFFD1CACB),
                     shape = RoundedCornerShape(size = 30.dp)
                 )
-                .width(325.dp),
+                .width(325.dp)
+                .testTag(USERNAME_TEXT_FIELD_TEST_TAG),
             value = text, onValueChange = onChange,
             placeholder = {
                 Text(text = placeholderText)

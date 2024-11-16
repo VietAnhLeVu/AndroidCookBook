@@ -10,18 +10,13 @@ import com.example.androidcookbook.CookbookApplication
 import com.example.androidcookbook.data.AuthRepository
 import com.example.androidcookbook.model.auth.RegisterRequest
 import com.example.androidcookbook.model.auth.SignInRequest
-import com.example.androidcookbook.model.auth.SignInResponse
-import com.example.androidcookbook.model.auth.RegisterResponse
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import java.net.SocketTimeoutException
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private val _uiState = MutableStateFlow(AuthUiState())
@@ -53,78 +48,39 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
     fun SignUp(req: RegisterRequest) {
         viewModelScope.launch(Dispatchers.IO) {
-            authRepository.register(req).enqueue(object : Callback<RegisterResponse> {
-                override fun onResponse(
-                    call: Call<RegisterResponse>,
-                    response: Response<RegisterResponse>,
-                ) {
-                    ChangeOpenDialog(true)
-                    if (response.isSuccessful) {
-                        // Trường hợp đăng ký thành công
-                        val registerResponse = response.body()
-                        Log.d("Register", "Success: ${registerResponse?.message}")
-                        ChangeDialogMessage(registerResponse?.message.toString())
-                    } else {
-                        // Trường hợp lỗi (400, 500, etc.)
-                        val errorBody = response.errorBody()?.string()
-                        try {
-                            // Chuyển đổi errorBody thành `RegisterResponse`
-                            val gson = Gson()
-                            val errorResponse =
-                                gson.fromJson(errorBody, RegisterResponse::class.java)
-                            val message = when (val msg = errorResponse.message) {
-                                else -> msg
-                            }
-                            Log.e("Register", "Error: $message")
-                            ChangeDialogMessage(message)
-                        } catch (e: Exception) {
-                            Log.e("Register", "Unknown Error: ${e.message}")
-                            ChangeDialogMessage(e.message.toString())
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                    Log.e("Register", "Failure: ${t.message}")
-                }
-            })
+            val response = authRepository.register(req)
+            ChangeOpenDialog(true)
+            if (response.isSuccessful) {
+                // Trường hợp đăng ký thành công
+                val registerResponse = response.body()
+                Log.d("Register", "Success: ${registerResponse?.message}")
+                registerResponse?.message?.let { ChangeDialogMessage(it) }
+            } else {
+                Log.e("Register", "Error: ${response}")
+                ChangeDialogMessage(response.toString())
+            }
         }
     }
 
     fun SignIn(req: SignInRequest) {
         viewModelScope.launch(Dispatchers.IO) {
-            authRepository.login(req).enqueue(object : Callback<SignInResponse> {
-                override fun onResponse(call: Call<SignInResponse>, response: Response<SignInResponse>) {
-                    ChangeOpenDialog(true)
-                    if (response.isSuccessful) {
-                        // Trường hợp đăng ký thành công
-                        val registerResponse = response.body()
-                        Log.d("Register", "Success: ${registerResponse?.message}")
-                        SignInSuccess()
-                        ChangeDialogMessage(registerResponse?.message.toString())
-                    } else {
-                        // Trường hợp lỗi (400, 500, etc.)
-                        val errorBody = response.errorBody()?.string()
-                        try {
-                            // Chuyển đổi errorBody thành `RegisterResponse`
-                            val gson = Gson()
-                            val errorResponse = gson.fromJson(errorBody, SignInResponse::class.java)
-                            val message = when (val msg = errorResponse.message) {
-                                else -> msg
-                            }
-                            Log.e("Register", "Error: $message")
-                            ChangeDialogMessage(message)
-                        } catch (e: Exception) {
-                            Log.e("Register", "Unknown Error: ${e.message}")
-                            ChangeDialogMessage(e.message.toString())
-                        }
-                    }
-                }
+            try {
+                val response = authRepository.login(req)
 
-                override fun onFailure(call: Call<SignInResponse>, t: Throwable) {
-                    Log.e("Register", "Failure: ${t.message}")
+                ChangeOpenDialog(true)
+                if (response.isSuccessful) {
+                    // Trường hợp đăng ký thành công
+                    val signInResponse = response.body()
+                    Log.d("Login", "Success: ${signInResponse?.message}")
+                    SignInSuccess()
+                    signInResponse?.message?.let { ChangeDialogMessage(it) }
+                } else {
+                    Log.e("Login", "Test: $response")
+                    ChangeDialogMessage(response.code().toString())
                 }
-            })
+            } catch (e: SocketTimeoutException) {
+                Log.e("Login", e.toString())
+            }
         }
     }
 
