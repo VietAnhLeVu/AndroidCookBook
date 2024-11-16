@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen
+package com.example.androidcookbook.ui.screen.appscreens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
