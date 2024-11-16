@@ -10,6 +10,6 @@ data class RegisterResponse(
     val statusCode: Int,
     val timestamp: String,
     val path: String,
-    val message: Any,
+    val message: String,
     val error: String
 )

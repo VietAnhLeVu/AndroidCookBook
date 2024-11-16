@@ -8,10 +8,10 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.androidcookbook.CookbookApplication
 import com.example.androidcookbook.data.AuthRepository
-import com.example.androidcookbook.model.api.ApiResponse
 import com.example.androidcookbook.model.auth.RegisterRequest
-import com.example.androidcookbook.model.auth.RegisterResponse
 import com.example.androidcookbook.model.auth.SignInRequest
+import com.example.androidcookbook.model.auth.SignInResponse
+import com.example.androidcookbook.model.auth.RegisterResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -73,9 +73,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
                             val errorResponse =
                                 gson.fromJson(errorBody, RegisterResponse::class.java)
                             val message = when (val msg = errorResponse.message) {
-                                is String -> msg
-                                is List<*> -> msg.joinToString(", ")
-                                else -> "Unknown message format"
+                                else -> msg
                             }
                             Log.e("Register", "Error: $message")
                             ChangeDialogMessage(message)
@@ -95,8 +93,8 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
     fun SignIn(req: SignInRequest) {
         viewModelScope.launch(Dispatchers.IO) {
-            authRepository.login(req).enqueue(object : Callback<ApiResponse> {
-                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+            authRepository.login(req).enqueue(object : Callback<SignInResponse> {
+                override fun onResponse(call: Call<SignInResponse>, response: Response<SignInResponse>) {
                     ChangeOpenDialog(true)
                     if (response.isSuccessful) {
                         // Trường hợp đăng ký thành công
@@ -110,11 +108,9 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
                         try {
                             // Chuyển đổi errorBody thành `RegisterResponse`
                             val gson = Gson()
-                            val errorResponse = gson.fromJson(errorBody, ApiResponse::class.java)
+                            val errorResponse = gson.fromJson(errorBody, SignInResponse::class.java)
                             val message = when (val msg = errorResponse.message) {
-                                is String -> msg
-                                is List<*> -> msg.joinToString(", ")
-                                else -> "Unknown message format"
+                                else -> msg
                             }
                             Log.e("Register", "Error: $message")
                             ChangeDialogMessage(message)
@@ -125,7 +121,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
                     }
                 }
 
-                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                override fun onFailure(call: Call<SignInResponse>, t: Throwable) {
                     Log.e("Register", "Failure: ${t.message}")
                 }
             })
