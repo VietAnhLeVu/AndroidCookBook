@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.example.androidcookbook.ui.screen.signinandup.ForgotPasswordScreen
 import com.example.androidcookbook.ui.screen.signinandup.SignBackground
 import com.example.androidcookbook.ui.viewmodel.SignViewModel
 
@@ -11,7 +12,7 @@ import com.example.androidcookbook.ui.viewmodel.SignViewModel
  * Login, registration, forgot password screens nav graph builder
  * (Unauthenticated user)
  */
-fun NavGraphBuilder.authScreens(viewModel: SignViewModel,navController: NavController) {
+fun NavGraphBuilder.authScreens(viewModel: SignViewModel, navController: NavController) {
     navigation(
         route = NavigationRoutes.AuthScreens.NavigationRoute.route,
         startDestination = NavigationRoutes.AuthScreens.Login.route
@@ -23,5 +24,11 @@ fun NavGraphBuilder.authScreens(viewModel: SignViewModel,navController: NavContr
                 isOpenDialog = false,
             )
         }
+        composable(route = NavigationRoutes.AuthScreens.ForgotPassword.route) {
+            ForgotPasswordScreen(
+
+            )
+        }
     }
 }
+

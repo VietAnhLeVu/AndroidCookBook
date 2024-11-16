@@ -62,17 +62,3 @@ fun NavGraphBuilder.appScreens(
         }
     }
 }
-
-fun shouldShowTopBar(currentRoute: String): Boolean {
-    return when (currentRoute) {
-        AppScreens.NavigationRoute.route -> true
-        else -> false
-    }
-}
-
-fun shouldShowBottomBar(currentRoute: String): Boolean {
-    return when (currentRoute) {
-        AppScreens.Category.route -> true
-        else -> false
-    }
-}

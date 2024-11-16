@@ -1,5 +1,7 @@
 package com.example.androidcookbook.ui.nav
 
+import com.example.androidcookbook.ui.nav.NavigationRoutes.AppScreens
+
 /**
  * Sealed class storing all navigation routes
  */
@@ -24,6 +26,23 @@ sealed class NavigationRoutes {
         data object Search : AppScreens(route = "Search")
         data object CreatePost : AppScreens(route = "CreatePost")
     }
+}
 
+fun shouldShowTopBar(currentRoute: String): Boolean {
+    return when (currentRoute) {
+        NavigationRoutes.AuthScreens.NavigationRoute.route -> false
+        NavigationRoutes.AuthScreens.Login.route -> false
+        NavigationRoutes.AuthScreens.ForgotPassword.route -> false
+        else -> true
+    }
+}
 
+fun shouldShowBottomBar(currentRoute: String): Boolean {
+    return when (currentRoute) {
+        AppScreens.Category.route -> true
+        AppScreens.AIChat.route -> true
+        AppScreens.Newsfeed.route -> true
+        AppScreens.UserProfile.route -> true
+        else -> false
+    }
 }

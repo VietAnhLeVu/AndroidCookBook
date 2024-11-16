@@ -19,9 +19,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.androidcookbook.ui.component.appbars.CookbookAppBar
 import com.example.androidcookbook.ui.component.appbars.CookbookBottomNavigationBar
 import com.example.androidcookbook.ui.component.appbars.SearchBar
+import com.example.androidcookbook.ui.nav.NavigationRoutes
 import com.example.androidcookbook.ui.nav.appScreens
 import com.example.androidcookbook.ui.nav.authScreens
-import com.example.androidcookbook.ui.screen.CookbookScreens
+import com.example.androidcookbook.ui.nav.shouldShowBottomBar
+import com.example.androidcookbook.ui.nav.shouldShowTopBar
 import com.example.androidcookbook.ui.viewmodel.CategoryViewModel
 import com.example.androidcookbook.ui.viewmodel.CookbookViewModel
 import com.example.androidcookbook.ui.viewmodel.SignViewModel
@@ -34,8 +36,8 @@ fun CookbookApp(
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
 
-    val currentScreen = CookbookScreens.valueOf(
-        backStackEntry?.destination?.route ?: CookbookScreens.Category.name
+    val currentScreen = (
+        backStackEntry?.destination?.route ?: NavigationRoutes.AuthScreens.Login.route
     )
 
     val viewModel: CookbookViewModel = viewModel()
@@ -46,10 +48,10 @@ fun CookbookApp(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            if (!currentScreen.hasTopBar) {
+            if (!shouldShowTopBar(currentScreen)) {
                 return@Scaffold
             }
-            if (currentScreen == CookbookScreens.Search) {
+            if (currentScreen == NavigationRoutes.AppScreens.Search.route) {
                 SearchBar(
                     onValueChange = { updatedSearchQuery ->
                         viewModel.updateSearchQuery(updatedSearchQuery)
@@ -61,10 +63,10 @@ fun CookbookApp(
                 CookbookAppBar(
                     showBackButton = uiState.canNavigateBack,
                     searchButtonAction = {
-                        navController.navigate(CookbookScreens.Search.name)
+                        navController.navigate(NavigationRoutes.AppScreens.Search.route)
                     },
                     onCreatePostClick = {
-                        navController.navigate(CookbookScreens.CreatePost.name)
+                        navController.navigate(NavigationRoutes.AppScreens.CreatePost.route)
                         viewModel.updateCanNavigateBack(true)
                     },
                     onMenuButtonClick = {
@@ -79,28 +81,28 @@ fun CookbookApp(
             }
         },
         bottomBar = {
-            if (!currentScreen.hasBottomBar) {
+            if (!shouldShowBottomBar(currentScreen)) {
                 return@Scaffold
             }
             CookbookBottomNavigationBar(
                 onHomeClick = {
-                    if (currentScreen != CookbookScreens.Category) {
-                        navController.navigate(route = CookbookScreens.Category.name)
+                    if (currentScreen != NavigationRoutes.AppScreens.Category.route) {
+                        navController.navigate(route = NavigationRoutes.AppScreens.Category.route)
                     }
                 },
                 onChatClick = {
-                    if (currentScreen != CookbookScreens.AIChat) {
-                        navController.navigate(route = CookbookScreens.AIChat.name)
+                    if (currentScreen != NavigationRoutes.AppScreens.AIChat.route) {
+                        navController.navigate(route = NavigationRoutes.AppScreens.AIChat.route)
                     }
                 },
                 onNewsfeedClick = {
-                    if (currentScreen != CookbookScreens.Newsfeed) {
-                        navController.navigate(route = CookbookScreens.Newsfeed.name)
+                    if (currentScreen != NavigationRoutes.AppScreens.Newsfeed.route) {
+                        navController.navigate(route = NavigationRoutes.AppScreens.Newsfeed.route)
                     }
                 },
                 onUserProfileClick = {
-                    if (currentScreen != CookbookScreens.UserProfile) {
-                        navController.navigate(route = CookbookScreens.UserProfile.name)
+                    if (currentScreen != NavigationRoutes.AppScreens.UserProfile.route) {
+                        navController.navigate(route = NavigationRoutes.AppScreens.UserProfile.route)
                     }
                 }
             )
@@ -108,7 +110,7 @@ fun CookbookApp(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = CookbookScreens.Category.name,
+            startDestination = NavigationRoutes.AuthScreens.NavigationRoute.route,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
