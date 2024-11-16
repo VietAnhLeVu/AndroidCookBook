@@ -69,12 +69,15 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
             if (response.isSuccessful) {
                 // Trường hợp đăng ký thành công
                 val signInResponse = response.body()
-                Log.d("Login", "Success: ${signInResponse?.message}")
+                Log.d("Login", "Success: $signInResponse}")
                 SignInSuccess()
                 signInResponse?.message?.let { ChangeDialogMessage(it) }
+            } else if (response.code() == 404){
+                Log.e("Login", "Request timed out.")
+                ChangeDialogMessage("Cannot establish connection")
             } else {
-                Log.e("Login", "Test: $response")
-                ChangeDialogMessage(response.code().toString())
+                Log.e("Login", "Error: $response")
+                ChangeDialogMessage("Wrong username or password")
             }
         }
     }

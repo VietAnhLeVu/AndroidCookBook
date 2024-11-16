@@ -201,7 +201,8 @@ fun InputField(
                 ) {
                     Icon(imageVector  = image, description)
                 }
-            }
+            },
+            singleLine = true,
         )
     } else {
         TextField(
@@ -224,6 +225,7 @@ fun InputField(
                 disabledIndicatorColor = Color.Transparent
             ),
             keyboardOptions = KeyboardOptions(keyboardType = type),
+            singleLine = true,
         )
     }
 
