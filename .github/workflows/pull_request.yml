@@ -6,7 +6,7 @@ on:
       - main
       - 'develope'
 jobs:
-  build:
+  test-:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +25,6 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run unit tests
-        run: |
-          ./gradlew clean testDebug
+        run: ./gradlew test
+#          ./gradlew clean testDebug
 
