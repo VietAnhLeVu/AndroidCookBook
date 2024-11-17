@@ -8,7 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.androidcookbook.model.auth.SignInRequest
+import com.example.androidcookbook.domain.model.auth.SignInRequest
 import com.example.androidcookbook.ui.nav.NavigationRoutes
 import com.example.androidcookbook.ui.nav.utils.authViewModel
 import com.example.androidcookbook.ui.features.auth.AuthViewModel

@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidcookbook.data.repositories.AuthRepository
-import com.example.androidcookbook.model.auth.RegisterRequest
-import com.example.androidcookbook.model.auth.SignInRequest
+import com.example.androidcookbook.domain.model.auth.RegisterRequest
+import com.example.androidcookbook.domain.model.auth.SignInRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

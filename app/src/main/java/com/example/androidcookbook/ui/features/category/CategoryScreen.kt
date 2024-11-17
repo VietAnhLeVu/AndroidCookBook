@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.androidcookbook.R
-import com.example.androidcookbook.model.Category
+import com.example.androidcookbook.domain.model.Category
 import com.example.androidcookbook.ui.theme.Typography
 import kotlinx.coroutines.delay
 

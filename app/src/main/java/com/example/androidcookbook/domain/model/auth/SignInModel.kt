@@ -1,4 +1,4 @@
-package com.example.androidcookbook.model.auth
+package com.example.androidcookbook.domain.model.auth
 
 import com.google.gson.annotations.SerializedName
 
