@@ -67,7 +67,6 @@ class AuthViewModel @Inject constructor(
             try {
                 val response = authRepository.login(req)
 
-                ChangeOpenDialog(true)
                 if (response.isSuccessful) {
                     val signInResponse = response.body()
                     Log.d("Login", "Success: $signInResponse}")
@@ -92,6 +91,7 @@ class AuthViewModel @Inject constructor(
                     }
                 }
             }
+            ChangeOpenDialog(true)
         }
     }
 }
