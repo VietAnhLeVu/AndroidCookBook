@@ -25,16 +25,16 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androidcookbook.model.auth.SignInRequest
 import com.example.androidcookbook.model.auth.RegisterRequest
 
 @Composable
 fun LoginScreen(
-    authViewModel: AuthViewModel,
+    isDialogOpen: Boolean,
+    dialogMessage: String?,
     onNavigateToSignUp: () -> Unit,
     onForgotPasswordClick: () -> Unit,
     onSignInClick: (String, String) -> Unit,
+    onDialogDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -70,13 +70,10 @@ fun LoginScreen(
                 onSignInClick = onSignInClick,
             )
         }
-        val uiState by authViewModel.uiState.collectAsState()
-        if (uiState.openDialog) {
+        if (isDialogOpen) {
             MinimalDialog(
-                dialogMessage = uiState.dialogMessage,
-                onDismissRequest = {
-                    authViewModel.ChangeOpenDialog(false)
-                }
+                dialogMessage = dialogMessage ?: "",
+                onDismissRequest = onDialogDismiss
             )
         }
     }
@@ -210,8 +207,11 @@ fun SignUpCompose(
 @Preview
 @Composable
 fun SignPreview() {
-    val authViewModel: AuthViewModel = viewModel(factory = AuthViewModel.Factory)
-    LoginScreen(authViewModel = authViewModel, {}, {}, {_,_ ->})
+    LoginScreen(
+        isDialogOpen = false,
+        dialogMessage = null,
+        {}, {}, {_,_ ->}, {}
+    )
 }
 
 @Preview

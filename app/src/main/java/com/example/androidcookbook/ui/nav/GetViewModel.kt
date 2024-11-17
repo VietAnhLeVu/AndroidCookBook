@@ -1,9 +1,20 @@
 package com.example.androidcookbook.ui.nav
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
+import com.example.androidcookbook.ui.screen.auth.AuthViewModel
 
-inline fun <reified VM : ViewModel> NavController.getViewModel(factory: ViewModelProvider.Factory): VM {
-    return ViewModelProvider(this.getBackStackEntry(this.graph.id), factory)[VM::class.java]
+@Composable
+fun authViewModel(
+    backStackEntry: NavBackStackEntry,
+    navController: NavController,
+): AuthViewModel {
+    val parentEntry = remember(backStackEntry) {
+        navController.getBackStackEntry(NavigationRoutes.AuthScreens.NavigationRoute.route)
+    }
+    val authViewModel = hiltViewModel<AuthViewModel>(parentEntry)
+    return authViewModel
 }

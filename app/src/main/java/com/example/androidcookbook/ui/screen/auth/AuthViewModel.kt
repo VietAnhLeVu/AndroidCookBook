@@ -2,21 +2,23 @@ package com.example.androidcookbook.ui.screen.auth
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.androidcookbook.CookbookApplication
 import com.example.androidcookbook.data.repositories.AuthRepository
 import com.example.androidcookbook.model.auth.RegisterRequest
 import com.example.androidcookbook.model.auth.SignInRequest
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
+@HiltViewModel
+class AuthViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : ViewModel() {
+
     private val _uiState = MutableStateFlow(AuthUiState())
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
 
@@ -81,7 +83,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
             } catch (e: Exception) {
                 when (e) {
                     is java.net.SocketTimeoutException -> {
-                        Log.e("Login", "Socket Timeout: ${e.message}")
+                        Log.e("Login", "Socket Timeout: ${e}")
                         ChangeDialogMessage("Request timed out. Please try again.")
                     }
                     else -> {
@@ -89,16 +91,6 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
                         ChangeDialogMessage("An unexpected error occurred. Please try again.")
                     }
                 }
-            }
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as CookbookApplication)
-                val authRepository = application.authContainer.repository as AuthRepository
-                AuthViewModel(authRepository = authRepository)
             }
         }
     }

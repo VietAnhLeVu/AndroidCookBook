@@ -24,17 +24,21 @@ fun NavGraphBuilder.authScreens(navController: NavController) {
         startDestination = NavigationRoutes.AuthScreens.Login.route
     ) {
         // Scope the ViewModel to the navigation graph
-        composable(route = NavigationRoutes.AuthScreens.Login.route) {
-            val authViewModel: AuthViewModel = navController.getViewModel(factory = AuthViewModel.Factory)
+        composable(route = NavigationRoutes.AuthScreens.Login.route) { backStackEntry ->
+            val authViewModel = authViewModel(backStackEntry, navController)
             val authUiState by authViewModel.uiState.collectAsState()
             LoginScreen(
-                authViewModel = authViewModel,
+                isDialogOpen = authUiState.openDialog,
+                dialogMessage = authUiState.dialogMessage,
                 onNavigateToSignUp = {
                     navController.navigate(NavigationRoutes.AuthScreens.Register.route)
                 },
                 onForgotPasswordClick = {},
                 onSignInClick = { username, password ->
                     authViewModel.signIn(SignInRequest(username, password))
+                },
+                onDialogDismiss = {
+                    authViewModel.ChangeOpenDialog(false)
                 }
             )
             Log.d("Login", "after LoginScreen() before LaunchedEffect(): signInSuccess: ${authUiState.signInSuccess}")
@@ -52,8 +56,8 @@ fun NavGraphBuilder.authScreens(navController: NavController) {
                 }
             }
         }
-        composable(route = NavigationRoutes.AuthScreens.Register.route) {
-            val authViewModel: AuthViewModel = navController.getViewModel(factory = AuthViewModel.Factory)
+        composable(route = NavigationRoutes.AuthScreens.Register.route) { backStackEntry ->
+            val authViewModel: AuthViewModel = authViewModel(backStackEntry, navController)
             RegisterScreen(
                 authViewModel = authViewModel,
                 onNavigateToSignIn = {
@@ -61,10 +65,10 @@ fun NavGraphBuilder.authScreens(navController: NavController) {
                 }
             )
         }
-        composable(route = NavigationRoutes.AuthScreens.ForgotPassword.route) {
-            val authViewModel: AuthViewModel = navController.getViewModel(factory = AuthViewModel.Factory)
+        composable(route = NavigationRoutes.AuthScreens.ForgotPassword.route) { backStackEntry ->
+            val authViewModel: AuthViewModel = authViewModel(backStackEntry, navController)
             ForgotPasswordScreen(
-
+                // TODO
             )
         }
     }
