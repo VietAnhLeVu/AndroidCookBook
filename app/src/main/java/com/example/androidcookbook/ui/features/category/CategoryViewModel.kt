@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen.category
+package com.example.androidcookbook.ui.features.category
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

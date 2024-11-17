@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.nav
+package com.example.androidcookbook.ui.nav.utils
 
 import androidx.navigation.NavHostController
 

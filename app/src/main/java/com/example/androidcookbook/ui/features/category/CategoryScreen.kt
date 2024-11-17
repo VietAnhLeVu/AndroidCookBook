@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen.category
+package com.example.androidcookbook.ui.features.category
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement

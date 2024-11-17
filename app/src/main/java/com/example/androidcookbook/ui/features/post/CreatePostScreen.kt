@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen.common
+package com.example.androidcookbook.ui.features.post
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
@@ -25,7 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androidcookbook.R
-import com.example.androidcookbook.ui.screen.newsfeed.PostHeader
+import com.example.androidcookbook.ui.features.newsfeed.PostHeader
 import com.example.androidcookbook.ui.theme.AndroidCookbookTheme
 
 @Composable

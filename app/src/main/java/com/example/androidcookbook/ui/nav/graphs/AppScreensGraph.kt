@@ -1,18 +1,19 @@
-package com.example.androidcookbook.ui.nav
+package com.example.androidcookbook.ui.nav.graphs
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.androidcookbook.ui.screen.aichat.AIChatScreen
-import com.example.androidcookbook.ui.screen.category.CategoryScreen
-import com.example.androidcookbook.ui.screen.common.CreatePostScreen
-import com.example.androidcookbook.ui.screen.newsfeed.NewsfeedScreen
-import com.example.androidcookbook.ui.screen.common.SearchScreen
-import com.example.androidcookbook.ui.screen.userprofile.UserProfileScreen
+import com.example.androidcookbook.ui.features.aichat.AIChatScreen
+import com.example.androidcookbook.ui.features.category.CategoryScreen
+import com.example.androidcookbook.ui.features.post.CreatePostScreen
+import com.example.androidcookbook.ui.features.newsfeed.NewsfeedScreen
+import com.example.androidcookbook.ui.features.search.SearchScreen
+import com.example.androidcookbook.ui.features.userprofile.UserProfileScreen
 import com.example.androidcookbook.ui.CookbookUiState
-import com.example.androidcookbook.ui.screen.category.CategoryViewModel
+import com.example.androidcookbook.ui.features.category.CategoryViewModel
 import com.example.androidcookbook.ui.CookbookViewModel
+import com.example.androidcookbook.ui.nav.NavigationRoutes
 
 /**
  * App screens nav graph builder

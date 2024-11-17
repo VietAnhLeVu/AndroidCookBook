@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen.userprofile
+package com.example.androidcookbook.ui.features.userprofile
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

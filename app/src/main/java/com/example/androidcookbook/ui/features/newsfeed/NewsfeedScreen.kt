@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen.newsfeed
+package com.example.androidcookbook.ui.features.newsfeed
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.component.appbars
+package com.example.androidcookbook.ui.components.appbars
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

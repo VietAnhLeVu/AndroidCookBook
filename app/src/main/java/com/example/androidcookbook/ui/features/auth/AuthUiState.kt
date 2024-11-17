@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.screen.auth
+package com.example.androidcookbook.ui.features.auth
 
 data class AuthUiState(
     val openDialog: Boolean = false,

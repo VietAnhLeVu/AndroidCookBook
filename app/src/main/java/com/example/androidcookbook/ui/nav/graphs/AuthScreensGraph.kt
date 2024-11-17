@@ -1,4 +1,4 @@
-package com.example.androidcookbook.ui.nav
+package com.example.androidcookbook.ui.nav.graphs
 
 import android.util.Log
 import androidx.compose.runtime.LaunchedEffect
@@ -9,10 +9,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.example.androidcookbook.model.auth.SignInRequest
-import com.example.androidcookbook.ui.screen.auth.AuthViewModel
-import com.example.androidcookbook.ui.screen.auth.ForgotPasswordScreen
-import com.example.androidcookbook.ui.screen.auth.LoginScreen
-import com.example.androidcookbook.ui.screen.auth.RegisterScreen
+import com.example.androidcookbook.ui.nav.NavigationRoutes
+import com.example.androidcookbook.ui.nav.utils.authViewModel
+import com.example.androidcookbook.ui.features.auth.AuthViewModel
+import com.example.androidcookbook.ui.features.auth.ForgotPasswordScreen
+import com.example.androidcookbook.ui.features.auth.LoginScreen
+import com.example.androidcookbook.ui.features.auth.RegisterScreen
 
 /**
  * Login, registration, forgot password screens nav graph builder
