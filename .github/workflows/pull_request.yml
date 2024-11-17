@@ -23,5 +23,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run unit tests
-        run: ./gradlew clean testDebug
+        run: |
+          export JAVA_OPTS="--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED"
+          ./gradlew clean testDebug
 
