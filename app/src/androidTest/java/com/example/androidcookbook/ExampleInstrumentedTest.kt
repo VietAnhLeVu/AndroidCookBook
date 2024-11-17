@@ -5,6 +5,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -43,12 +44,14 @@ class ExampleInstrumentedTest {
 
         composeTestRule.setContent {
             AndroidCookbookTheme {
-                val authViewModel: AuthViewModel = viewModel(factory = AuthViewModel.Factory)
+                val authViewModel: AuthViewModel = hiltViewModel()
                 LoginScreen(
-                    authViewModel = authViewModel,
+                    isDialogOpen = false,
+                    dialogMessage = null,
+                    onDialogDismiss = {},
                     onNavigateToSignUp = {},
                     onForgotPasswordClick = {},
-                    onSignInClick = { username, password -> authViewModel.signIn(SignInRequest(username, password)) }
+                    onSignInClick = { username, password -> authViewModel.signIn(SignInRequest(username, password)) },
                 )
             }
         }
