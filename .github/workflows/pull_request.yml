@@ -12,11 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup JDK 21
+      - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 21
+          java-version: |
+            8
+            21
           cache: 'gradle'
 
       - name: Grant execute permission for gradlew
@@ -24,6 +26,5 @@ jobs:
 
       - name: Run unit tests
         run: |
-          export JAVA_OPTS="--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED"
           ./gradlew clean testDebug
 
